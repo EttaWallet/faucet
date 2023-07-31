@@ -1,5 +1,5 @@
 {
-  "name": "mutinynet-faucet",
+  "name": "etta-faucet",
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",

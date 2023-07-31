@@ -20,10 +20,10 @@ export default function Root() {
   return (
     <Html lang="en">
       <Head>
-        <Title>MUTINYNET</Title>
+        <Title>EttaWallet LN testnet faucet</Title>
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Link rel="icon" href="/favicon.svg" />
+        <Link rel="icon" href="/favicon.png" />
       </Head>
       <Body>
         <Suspense>
