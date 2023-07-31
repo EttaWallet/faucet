@@ -23,13 +23,16 @@ const Pop = (props: any) => {
           </button>
         </Match>
         <Match when={props.error}>
-          <p>Something went wrong</p>
-          <code>{props.error.message}</code>
+          <img class="mb-2" src="/no-cap.gif" />
+          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Error:&nbsp;</strong>
+            <span class="block sm:inline">{props.error.message}</span>
+          </div>
           <button
             class={SIMPLE_BUTTON}
             onClick={() => window.location.reload()}
           >
-            Try again
+            Try again?
           </button>
         </Match>
         <Match when={true}>
@@ -54,41 +57,51 @@ const Faucet = () => {
   const [sendResult, { Form }] = createRouteAction(
     async (formData: FormData) => {
       const bolt11 = formData.get("bolt11")?.toString();
-      try {
-        // also maybe we can first get details about our node:
-        // 1. What's our balance?
-        // 2. If balance is less than 1,000,000 sats, reject all.
-        if (!bolt11) {
-          throw new Error("No bolt11 provided");
-        } else {
-          // first decode the invoice to check:
-          // 1. has invoice been paid or rejected
-          // 2. Is from EttaWallet i.e description is "Invoice + Channel Open"
-          // 2. does the invoice ask for more than 30,000 sats
-          const res = await fetch(`${FAUCET_API_URL}/v1/channels/transactions`, {
-            method: "POST",
-            body: JSON.stringify({ payment_request: bolt11, }),
-            headers: {
-              'Grpc-Metadata-macaroon': FAUCET_MACAROON,
-            },
-          });
-          if (!res.ok) {
-            throw new Error(await res.text());
-          } else {
-            const response = await res.json()
-            return response;
-          }
-        }
-      } catch (e) {
-        console.error(e);
+      // did user enter anything?
+      if (!bolt11) {
+        throw new Error("No bolt11 provided");
       }
+      // attempt to decode the invoice to check amount, etc
+      const decodeRes = await fetch(`${FAUCET_API_URL}/v1/payreq/${bolt11}`, {
+        method: "GET",
+        headers: {
+          'Grpc-Metadata-macaroon': FAUCET_MACAROON,
+        },
+      });
+      if (!decodeRes.ok) {
+        throw new Error(await decodeRes.text());
+      } else {
+        const response = await decodeRes.json()
+        // Is from EttaWallet i.e description is "Invoice + Channel Open"
+        if (response.description !== "Invoice + Channel open") {
+          throw new Error("Not accepting any invoices that didn't originate from EttaWallet at this time.");
+        }
+        // does the invoice ask for more than 30,000 sats
+        if (response.num_satoshis > 30000) {
+          throw new Error("Your invoice exceeds the allowed amount: 30,000 satoshis.");
+        }
+        // attempt to pay if all checks out.
+        const payRes = await fetch(`${FAUCET_API_URL}/v1/channels/transactions`, {
+          method: "POST",
+          body: JSON.stringify({ payment_request: bolt11 }),
+          headers: {
+            'Grpc-Metadata-macaroon': FAUCET_MACAROON,
+          },
+        });
+        if (!payRes.ok) {
+          throw new Error(await payRes.text());
+        } else {
+          const response = await payRes.json()
+          return response;
+        }
+      }
+      
     }
   );
 
   return (
     <Switch>
       <Match when={sendResult.result || sendResult.error}>
-        <img src="/no-cap.gif" />
         <Pop result={sendResult.result} error={sendResult.error} />
       </Match>
       <Match when={true}>
