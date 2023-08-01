@@ -63,7 +63,7 @@ export default function Home() {
       </Show>
       <pre class="overflow-x-auto whitespace-pre-line break-none p-4 bg-white/10 rounded-lg text-center">
           {
-            `2NFs14UZ831Ys8LNGf877h9eUHykfrb7waf \n \n Send us testnet bitcoin on that address ☝️🥺🤞`
+            `TB1QH9DJWK5MNY3R6PXXEQWXQYGRM3YAUUTFMVDRZQ \n \n Send us testnet bitcoin on that address ☝️🥺🤞`
           }
         </pre>
     </main>
