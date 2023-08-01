@@ -1,9 +1,9 @@
 import solid from "solid-start/vite";
-import netlify from "solid-start-netlify";
 import { defineConfig } from "vite";
+import cloudflare from "solid-start-cloudflare-pages";
 
 export default defineConfig({
-  plugins: [solid({ adapter: netlify({ edge: true }) })],
+  plugins: [solid({ adapter: cloudflare({}) })],
   optimizeDeps: {
     disabled: false,
   },

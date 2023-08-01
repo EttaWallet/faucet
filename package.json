@@ -19,7 +19,7 @@
     "@solidjs/router": "^0.8.2",
     "solid-js": "^1.7.3",
     "solid-start": "^0.2.26",
-    "solid-start-netlify": "^0.2.30",
+    "solid-start-cloudflare-pages": "^0.2.30",
     "undici": "^5.21.2"
   },
   "engines": {
