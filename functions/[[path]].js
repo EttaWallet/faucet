@@ -2,11 +2,11 @@ var manifest = {
 	"/*404": [
 	{
 		type: "script",
-		href: "/assets/_...404_-cd5d68be.js"
+		href: "/assets/_...404_-ebf8ff60.js"
 	},
 	{
 		type: "script",
-		href: "/assets/entry-client-1372753a.js"
+		href: "/assets/entry-client-71b5d8cd.js"
 	},
 	{
 		type: "style",
@@ -16,11 +16,11 @@ var manifest = {
 	"/": [
 	{
 		type: "script",
-		href: "/assets/index-7ced2fc1.js"
+		href: "/assets/index-b03b9d83.js"
 	},
 	{
 		type: "script",
-		href: "/assets/entry-client-1372753a.js"
+		href: "/assets/entry-client-71b5d8cd.js"
 	},
 	{
 		type: "style",
@@ -30,7 +30,7 @@ var manifest = {
 	"entry-client": [
 	{
 		type: "script",
-		href: "/assets/entry-client-1372753a.js"
+		href: "/assets/entry-client-71b5d8cd.js"
 	},
 	{
 		type: "style",
