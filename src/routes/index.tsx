@@ -21,9 +21,11 @@ export default function Home() {
       if (!balanceRes.ok) {
         throw new Error(await balanceRes.text());
       } else {
-        const response = await balanceRes.json()
-        setBalance(response.balance);
-        setLoading(false);
+        const response = await balanceRes.json().then((json) => {
+          console.log("json: ", json);
+          setBalance(json.balance);
+          setLoading(false);
+        })
       }
     } catch (e) {
       console.error('Error fetching balance: ', e);

@@ -2069,9 +2069,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.477:
-  version "1.4.478"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.478.tgz#687198cfcef9b854a79a229feaa6cd8961206290"
-  integrity sha512-qjTA8djMXd+ruoODDFGnRCRBpID+AAfYWCyGtYTNhsuwxI19s8q19gbjKTwRS5z/LyVf5wICaIiPQGLekmbJbA==
+  version "1.4.479"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.479.tgz#ec9f676f23d3a0b0e429bc454d25e0b3253d2118"
+  integrity sha512-ABv1nHMIR8I5n3O3Een0gr6i0mfM+YcTZqjHy3pAYaOjgFG+BMquuKrSyfYf5CbEkLr9uM05RA3pOk4udNB/aQ==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -3217,9 +3217,9 @@ solid-start-cloudflare-pages@^0.2.30:
     ws "^8.12.0"
 
 solid-start-node@^0.2.26:
-  version "0.2.29"
-  resolved "https://registry.yarnpkg.com/solid-start-node/-/solid-start-node-0.2.29.tgz#cb966a82c495fc3f674fd1464fa50226dd3240df"
-  integrity sha512-mvQADQN6K7NF88J9ZH2E7aG4DiXpuCj97FWpY+SUoezNJw2pHsDGhbYFONinAic+Baa6tbzuPP2jszb6xoRsag==
+  version "0.2.30"
+  resolved "https://registry.yarnpkg.com/solid-start-node/-/solid-start-node-0.2.30.tgz#079c99b0147f796af954e7d4c88f144de7ce3161"
+  integrity sha512-hx26TPk3E+kN6YbJg6Tke1x60EuStzhCn4w9f6/0x5v/AqJpCfV/WGunM0flWNAql2/IIaRiJdfRYxLk++dHpg==
   dependencies:
     "@rollup/plugin-commonjs" "^24.0.0"
     "@rollup/plugin-json" "^6.0.0"
@@ -3231,9 +3231,9 @@ solid-start-node@^0.2.26:
     terser "^5.16.1"
 
 solid-start@^0.2.26:
-  version "0.2.29"
-  resolved "https://registry.yarnpkg.com/solid-start/-/solid-start-0.2.29.tgz#355ac0b06a7df3325be51c49e755f368513f160a"
-  integrity sha512-Lvov1rQSJGPsBAPh/ot4UGuxrMeb2PjRV/QXT3eoTPjbTjtLGfo9OJWtZHXHuCIrFgqiNQvX/K95jZgfR6jJ+w==
+  version "0.2.30"
+  resolved "https://registry.yarnpkg.com/solid-start/-/solid-start-0.2.30.tgz#05127899afe50a626bd2c3baccebacbb346efac5"
+  integrity sha512-/kLq28UdXPSurgCRQfZTFf/LZVBZxSAk06G/Dd9/o2Uku23nGmGiuQf1YfZO4ZPzAunoHCLQwII1Ni/z7VLCIQ==
   dependencies:
     "@babel/core" "^7.20.12"
     "@babel/generator" "^7.20.7"
