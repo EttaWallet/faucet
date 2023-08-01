@@ -22,7 +22,6 @@ export default function Home() {
         throw new Error(await balanceRes.text());
       } else {
         const response = await balanceRes.json().then((json) => {
-          console.log("json: ", json);
           setBalance(json.balance);
           setLoading(false);
         })
