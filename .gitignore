@@ -24,3 +24,5 @@ gitignore
 Thumbs.db
 
 .env
+
+DEPLOY.md
