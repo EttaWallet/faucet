@@ -35,7 +35,7 @@ export default function Home() {
   });
 
   return (
-    <main class="flex flex-col gap-4 items-center w-full max-w-[40rem] mx-auto p-5 mt-8">
+    <main class="flex flex-col gap-4 items-center w-full max-w-[40rem] mx-auto p-8 mt-8">
       <img class="h-20 w-20" src="/logo.png" alt="Etta logo" />
       <h1 class="text-4xl drop-shadow-text-glow font-bold">LN Testnet Faucet</h1>
       <Show when={loading()}>
@@ -48,7 +48,7 @@ export default function Home() {
         </div>
       </Show>
       <Show when={!loading() && parseInt(balance(), 10) > 1000000}>
-        <pre class="overflow-x-auto whitespace-pre-line break-none p-4 bg-white/10 rounded-lg">
+        <pre class="overflow-x-auto whitespace-pre-wrap break-word p-4 bg-white/10 rounded-lg">
           {
             `Only paying requests for not more than 30,000 sats. Please only use this if your EttaWallet node has no inbound liquidity or a 0-sat receiving capacity!`
           }
@@ -61,7 +61,7 @@ export default function Home() {
             <span class="block sm:inline">Sorry buddy, this faucet is out of money.</span>
           </div>
       </Show>
-      <pre class="overflow-x-auto whitespace-pre-line break-none p-4 bg-white/10 rounded-lg text-center">
+      <pre class="overflow-x-auto whitespace-pre-wrap break-all p-4 bg-white/10 rounded-lg text-center">
           {
             `TB1QH9DJWK5MNY3R6PXXEQWXQYGRM3YAUUTFMVDRZQ \n \n Send us testnet bitcoin on that address ☝️🥺🤞`
           }
