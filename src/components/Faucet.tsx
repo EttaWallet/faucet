@@ -74,11 +74,11 @@ const Faucet = () => {
         const response = await decodeRes.json()
         // Is from EttaWallet i.e description is "Invoice + Channel Open"
         if (response.description !== "Invoice + Channel open") {
-          throw new Error("Not accepting any invoices that didn't originate from EttaWallet at this time.");
+          throw new Error("Only paying invoices that will faciliate a channel open. You can use htlc.me");
         }
         // does the invoice ask for more than 30,000 sats
         if (response.num_satoshis > 30000) {
-          throw new Error("Your invoice exceeds the allowed amount: 30,000 satoshis.");
+          throw new Error("Your invoice exceeds the allowed amount: 30,000 satoshis");
         }
         // attempt to pay if all checks out.
         const payRes = await fetch(`${FAUCET_API_URL}/v1/channels/transactions`, {
