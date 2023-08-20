@@ -2580,7 +2580,7 @@ const Faucet = () => {
     } else {
       const response = await decodeRes.json();
       // Is from EttaWallet i.e description is "Invoice + Channel Open"
-      if (response.description !== "Invoice + Channel open") {
+      if (response.description !== "Welcome to the lightning network") {
         throw new Error("Not accepting any invoices that didn't originate from EttaWallet at this time.");
       }
       // does the invoice ask for more than 30,000 sats

@@ -7,14 +7,28 @@ const FAUCET_MACAROON = import.meta.env.VITE_MACAROON_HEX;
 const SIMPLE_BUTTON =
   "mt-4 px-4 py-2 rounded-xl text-xl font-semibold bg-black text-white border border-white";
 
+const base64ToHex = (str: string) => {
+  const hex = [];
+  for (
+    let i = 0, bin = atob(str.replace(/[ \r\n]+$/, ""));
+    i < bin.length;
+    ++i
+  ) {
+    let tmp = bin.charCodeAt(i).toString(16);
+    if (tmp.length === 1) tmp = "0" + tmp;
+    hex[hex.length] = tmp;
+  }
+  return hex.join("");
+};
+
 const Pop = (props: any) => {
   return (
     <div class="rounded-xl p-4 w-full flex flex-col items-center gap-2 bg-[rgba(0,0,0,0.5)] drop-shadow-blue-glow">
       {/* {JSON.stringify(props, null, 2)} */}
       <Switch>
         <Match when={props.result}>
-          <p>Paid the invoice, here's your proof</p>
-          <pre class="text-sm font-mono">{props.result?.payment_hash}</pre>
+          <p>Already paid this invoice, here's the hash:</p>
+          <pre class="text-sm font-mono">{base64ToHex(props.result?.payment_hash)}</pre>
           <button
             class={SIMPLE_BUTTON}
             onClick={() => window.location.reload()}
@@ -73,8 +87,8 @@ const Faucet = () => {
       } else {
         const response = await decodeRes.json()
         // Is from EttaWallet i.e description is "Invoice + Channel Open"
-        if (response.description !== "Invoice + Channel open") {
-          throw new Error("Only paying invoices that will faciliate a channel open. You can use htlc.me");
+        if (response.description !== "Welcome to the lightning network") {
+          throw new Error("Only paying invoices to open channels. You can use htlc.me");
         }
         // does the invoice ask for more than 30,000 sats
         if (response.num_satoshis > 30000) {
@@ -92,6 +106,7 @@ const Faucet = () => {
           throw new Error(await payRes.text());
         } else {
           const response = await payRes.json()
+          console.log("payRes: ", response);
           return response;
         }
       }
