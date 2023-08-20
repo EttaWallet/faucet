@@ -2,11 +2,11 @@ var manifest = {
 	"/*404": [
 	{
 		type: "script",
-		href: "/assets/_...404_-f1afc33b.js"
+		href: "/assets/_...404_-08ae1e25.js"
 	},
 	{
 		type: "script",
-		href: "/assets/entry-client-92932fbb.js"
+		href: "/assets/entry-client-488b8fc0.js"
 	},
 	{
 		type: "style",
@@ -16,11 +16,11 @@ var manifest = {
 	"/": [
 	{
 		type: "script",
-		href: "/assets/index-74b2d243.js"
+		href: "/assets/index-bc7e05cf.js"
 	},
 	{
 		type: "script",
-		href: "/assets/entry-client-92932fbb.js"
+		href: "/assets/entry-client-488b8fc0.js"
 	},
 	{
 		type: "style",
@@ -30,7 +30,7 @@ var manifest = {
 	"entry-client": [
 	{
 		type: "script",
-		href: "/assets/entry-client-92932fbb.js"
+		href: "/assets/entry-client-488b8fc0.js"
 	},
 	{
 		type: "style",
@@ -2517,7 +2517,7 @@ function NotFound() {
   })));
 }
 
-const _tmpl$$1 = ["<p", ">Paid the invoice, here's your proof</p>"],
+const _tmpl$$1 = ["<p", ">Already paid this invoice, here's the hash:</p>"],
   _tmpl$2$1 = ["<pre", " class=\"text-sm font-mono\">", "</pre>"],
   _tmpl$3$1 = ["<button", ">Start Over</button>"],
   _tmpl$4$1 = ["<img", " class=\"mb-2\" src=\"/no-cap.gif\">"],
@@ -2533,6 +2533,15 @@ const _tmpl$$1 = ["<p", ">Paid the invoice, here's your proof</p>"],
 const FAUCET_API_URL$1 = "https://etta-tn.t.voltageapp.io";
 const FAUCET_MACAROON$1 = "0201036C6E6402F801030A105ACC4AFE12F23A48D8EB3942A0BE6A271201301A160A0761646472657373120472656164120577726974651A130A04696E666F120472656164120577726974651A170A08696E766F69636573120472656164120577726974651A210A086D616361726F6F6E120867656E6572617465120472656164120577726974651A160A076D657373616765120472656164120577726974651A170A086F6666636861696E120472656164120577726974651A160A076F6E636861696E120472656164120577726974651A140A057065657273120472656164120577726974651A180A067369676E6572120867656E657261746512047265616400000620C8F67694CC8200617647E57DFE767265C378980FAE2ED39C36D57794085250D5";
 const SIMPLE_BUTTON = "mt-4 px-4 py-2 rounded-xl text-xl font-semibold bg-black text-white border border-white";
+const base64ToHex = str => {
+  const hex = [];
+  for (let i = 0, bin = atob(str.replace(/[ \r\n]+$/, "")); i < bin.length; ++i) {
+    let tmp = bin.charCodeAt(i).toString(16);
+    if (tmp.length === 1) tmp = "0" + tmp;
+    hex[hex.length] = tmp;
+  }
+  return hex.join("");
+};
 const Pop = props => {
   return ssr(_tmpl$10, ssrHydrationKey(), escape(createComponent(Switch, {
     get children() {
@@ -2541,7 +2550,7 @@ const Pop = props => {
           return props.result;
         },
         get children() {
-          return [ssr(_tmpl$$1, ssrHydrationKey()), ssr(_tmpl$2$1, ssrHydrationKey(), escape(props.result?.payment_hash)), ssr(_tmpl$3$1, ssrHydrationKey() + ssrAttribute("class", escape(SIMPLE_BUTTON, true), false))];
+          return [ssr(_tmpl$$1, ssrHydrationKey()), ssr(_tmpl$2$1, ssrHydrationKey(), escape(base64ToHex(props.result?.payment_hash))), ssr(_tmpl$3$1, ssrHydrationKey() + ssrAttribute("class", escape(SIMPLE_BUTTON, true), false))];
         }
       }), createComponent(Match, {
         get when() {
@@ -2581,11 +2590,11 @@ const Faucet = () => {
       const response = await decodeRes.json();
       // Is from EttaWallet i.e description is "Invoice + Channel Open"
       if (response.description !== "Welcome to the lightning network") {
-        throw new Error("Not accepting any invoices that didn't originate from EttaWallet at this time.");
+        throw new Error("Only paying invoices to open channels. You can use htlc.me");
       }
       // does the invoice ask for more than 30,000 sats
       if (response.num_satoshis > 30000) {
-        throw new Error("Your invoice exceeds the allowed amount: 30,000 satoshis.");
+        throw new Error("Your invoice exceeds the allowed amount: 30,000 satoshis");
       }
       // attempt to pay if all checks out.
       const payRes = await fetch(`${FAUCET_API_URL$1}/v1/channels/transactions`, {
@@ -2601,6 +2610,7 @@ const Faucet = () => {
         throw new Error(await payRes.text());
       } else {
         const response = await payRes.json();
+        console.log("payRes: ", response);
         return response;
       }
     }
